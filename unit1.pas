@@ -19,7 +19,6 @@ type
     Button5: TButton;
     Button6: TButton;
     Edit1: TEdit;
-    Edit2: TEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
@@ -65,7 +64,6 @@ type
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem5Click(Sender: TObject);
-    procedure MenuItem9Click(Sender: TObject);
     procedure TabControl1Change(Sender: TObject);
     procedure TrayIcon1Click(Sender: TObject);
   private
@@ -85,16 +83,20 @@ implementation
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
+  //TODO
+  //Refresh all
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-  TrayIcon1.Visible:=true;
+     //TODO single refresh
+     //For the moment refresh all assigned
+     button1.click;
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
-  TrayIcon1.Visible:=false;
+  button1.Click;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -181,42 +183,77 @@ end;
 
 procedure TForm1.TabControl1Change(Sender: TObject);
 begin
+  //TODO refresh one by one
 
-  //0  Root-Systemd-Services
-  //1  Root-Systemd-Timers
-  //2  User-Systemd-Services
-  //3  User-Systemd-Timers
-  //4  Root-Systemd-Init.d
-  //5  Root-DBus-Services
-  //6  Root-Cron
-  //7  User-Cron
-  //8  Root-XDG-Autostart
-  //9  Root-XDG-Openbox
-  //10 User-XDG-Openbox
-  //11 Root-Udev-Rules
-  //12 Root-KDE-User-Autostart
-  //13 Root-Plasma-Env
-  //14 Root-Plasma-Shutdown
-  //15 Root-Etc-Profile
-  //16 Root-Etc-Profile.d
-  //17 Root-X11-Xinitrc
-  //18 User-X11-Xinitrc
-  //19 Root-Awesome-Autorun.sh
-  //20 Root-Fluxbox-Startup
-  //21 Root-RC.Local
-  //22 Root-RC.D-RC.Local
-  //23 Root-Xsession-GDM
-  //24 Root-Xsession-LightDM
-  //25 Root-Xsession-LXDM
-  //26 Root-Xsession-SDDM
-  //27 User-Xsession
-  //28 User-Xprofile-User
-  //29 User-Wine
-  //30 User-Autostart
-  //31 User-Autostart-Scripts
+  //0  Systemd-Services    Root
+  //1  Systemd-Timers      Root
+  //2  Systemd-Init.d      Root
+  //3  Cron-Scheduler      Root
+  //4  DBus-Services       Root
+  //5  XDG-Autostart       Root
+  //6  XDG-Openbox         Root
+  //7  X11-Xinitrc         Root
+  //8  KDE-Environment     Root
+  //9  KDE-Shutdown        Root
+  //10 Udev-Rules          Root
+  //11 ETC-Profile         Root
+  //12 ETC-Profile.d       Root
+  //13 RC.D-RC.Local       Root
+  //14 RC.Local            Root
+  //15 Xsession-GDM        Root
+  //16 Xsession-LightDM    Root
+  //17 Xsession-LXDM       Root
+  //18 Xsession-SDDM       Root
+  //19 Fluxbox-Startup     Root
+  //20 Aws-Autorun.sh      Root
+  //21 Systemd-Services    User
+  //22 Systemd-Timers      User
+  //23 Cron-Scheduler      User
+  //24 XDG-Openbox         User
+  //25 X11-Xinitrc         User
+  //26 KDE-Autostart       User
+  //27 Xsession            User
+  //28 Xprofile            User
+  //29 Autostart-sh        User
+  //30 Autostart           User
+  //31 Wine                User
 
+  edit1.Caption:='Tab: ';
+  edit1.Caption:=edit1.Caption+inttostr(tabcontrol1.TabIndex);
+  edit1.Caption:=edit1.Caption+' Location: ';
 
-  edit1.Caption:=inttostr(tabcontrol1.TabIndex);
+  if tabcontrol1.TabIndex=0  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=1  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=2  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=3  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=4  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=5  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=6  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=7  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=8  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=9  then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=10 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=11 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=12 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=13 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=14 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=15 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=16 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=17 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=18 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=19 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=20 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=21 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=22 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=23 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=24 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=25 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=26 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=27 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=28 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=29 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=30 then edit1.Caption:=edit1.Caption+'';
+  if tabcontrol1.TabIndex=31 then edit1.Caption:=edit1.Caption+'';
 
 end;
 

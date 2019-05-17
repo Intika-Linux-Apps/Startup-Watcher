@@ -1,24 +1,29 @@
 object Form1: TForm1
-  Left = 16
-  Height = 628
-  Top = 84
-  Width = 947
+  Left = 221
+  Height = 626
+  Top = 42
+  Width = 948
   Caption = 'Startup Watcher'
-  ClientHeight = 605
-  ClientWidth = 947
-  Constraints.MaxHeight = 628
-  Constraints.MaxWidth = 1049
+  ClientHeight = 603
+  ClientWidth = 948
+  Constraints.MaxHeight = 626
+  Constraints.MaxWidth = 1050
+  Constraints.MinHeight = 626
+  Font.Name = 'Liberation Mono'
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
   Position = poDesktopCenter
   LCLVersion = '1.2.4.0'
   object Button1: TButton
-    Left = 952
+    Left = 948
     Height = 25
     Top = 1
-    Width = 88
+    Width = 97
     Caption = 'Refresh All'
+    Font.Height = 11
+    Font.Name = 'Liberation Mono'
     OnClick = Button1Click
+    ParentFont = False
     TabOrder = 0
   end
   object TabControl1: TTabControl
@@ -28,140 +33,151 @@ object Form1: TForm1
     Width = 933
     OnChange = TabControl1Change
     TabPosition = tpLeft
-    TabWidth = 182
+    TabWidth = 181
     TabIndex = 0
     Tabs.Strings = (
-      'Root-Systemd-Services'
-      'Root-Systemd-Timers'
-      'User-Systemd-Services'
-      'User-Systemd-Timers'
-      'Root-Systemd-Init.d'
-      'Root-DBus-Services'
-      'Root-Cron'
-      'User-Cron'
-      'Root-XDG-Autostart'
-      'Root-XDG-Openbox'
-      'User-XDG-Openbox'
-      'Root-Udev-Rules'
-      'Root-KDE-User-Autostart'
-      'Root-Plasma-Env'
-      'Root-Plasma-Shutdown'
-      'Root-Etc-Profile'
-      'Root-Etc-Profile.d'
-      'Root-X11-Xinitrc'
-      'User-X11-Xinitrc'
-      'Root-Awesome-Autorun.sh'
-      'Root-Fluxbox-Startup'
-      'Root-RC.Local'
-      'Root-RC.D-RC.Local'
-      'Root-Xsession-GDM'
-      'Root-Xsession-LightDM'
-      'Root-Xsession-LXDM'
-      'Root-Xsession-SDDM'
-      'User-Xsession'
-      'User-Xprofile-User'
-      'User-Wine'
-      'User-Autostart'
-      'User-Autostart-Scripts'
+      'Systemd-Services    Root'
+      'Systemd-Timers      Root'
+      'Systemd-Init.d      Root'
+      'Cron-Scheduler      Root'
+      'DBus-Services       Root'
+      'XDG-Autostart       Root'
+      'XDG-Openbox         Root'
+      'X11-Xinitrc         Root'
+      'KDE-Environment     Root'
+      'KDE-Shutdown        Root'
+      'Udev-Rules          Root'
+      'ETC-Profile         Root'
+      'ETC-Profile.d       Root'
+      'RC.D-RC.Local       Root'
+      'RC.Local            Root'
+      'Xsession-GDM        Root'
+      'Xsession-LightDM    Root'
+      'Xsession-LXDM       Root'
+      'Xsession-SDDM       Root'
+      'Fluxbox-Startup     Root'
+      'Aws-Autorun.sh      Root'
+      'Systemd-Services    User'
+      'Systemd-Timers      User'
+      'Cron-Scheduler      User'
+      'XDG-Openbox         User'
+      'X11-Xinitrc         User'
+      'KDE-Autostart       User'
+      'Xsession            User'
+      'Xprofile            User'
+      'Autostart-sh        User'
+      'Autostart           User'
+      'Wine                User'
     )
+    Font.Height = 12
+    Font.Name = 'Liberation Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqAntialiased
     ParentBiDiMode = False
     ParentFont = False
     TabOrder = 1
     object Label2: TLabel
-      Left = 193
-      Height = 15
+      Left = 189
+      Height = 14
       Top = 356
-      Width = 161
+      Width = 168
       Caption = 'Changes since last check'
       ParentColor = False
     end
     object Memo1: TMemo
-      Left = 192
+      Left = 187
       Height = 304
-      Top = 48
-      Width = 728
+      Top = 47
+      Width = 739
+      Font.Name = 'Liberation Mono'
+      ParentFont = False
       ScrollBars = ssAutoBoth
       TabOrder = 1
     end
     object Memo2: TMemo
-      Left = 192
+      Left = 187
       Height = 208
-      Top = 376
-      Width = 728
+      Top = 377
+      Width = 739
+      Font.Name = 'Liberation Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqAntialiased
+      ParentFont = False
       ScrollBars = ssAutoBoth
       TabOrder = 2
     end
     object Edit1: TEdit
-      Left = 263
-      Height = 23
-      Top = 24
-      Width = 657
+      Left = 187
+      Height = 22
+      Top = 22
+      Width = 739
       TabOrder = 3
-    end
-    object Edit2: TEdit
-      Left = 192
-      Height = 23
-      Top = 24
-      Width = 72
-      TabOrder = 4
       Text = 'Location:'
     end
     object Button3: TButton
-      Left = 717
-      Height = 22
+      Left = 722
+      Height = 23
       Top = 352
       Width = 100
       Caption = 'Refresh'
+      OnClick = Button3Click
+      TabOrder = 4
+    end
+    object Button4: TButton
+      Left = 826
+      Height = 23
+      Top = 352
+      Width = 100
+      Caption = 'Refresh All'
+      OnClick = Button4Click
       TabOrder = 5
     end
   end
   object Button5: TButton
-    Left = 952
+    Left = 948
     Height = 25
     Top = 32
-    Width = 88
+    Width = 97
     Caption = 'To Tray'
+    Font.Height = 11
+    Font.Name = 'Liberation Mono'
     OnClick = Button5Click
+    ParentFont = False
     TabOrder = 2
   end
   object GroupBox1: TGroupBox
     Left = 8
-    Height = 24
-    Top = 2
+    Height = 25
+    Top = 1
     Width = 933
-    ClientHeight = 20
+    ClientHeight = 21
     ClientWidth = 929
     TabOrder = 3
     object Label1: TLabel
-      Left = 0
-      Height = 18
-      Top = 0
-      Width = 929
-      Align = alTop
+      Left = 328
+      Height = 16
+      Top = 2
+      Width = 279
       Alignment = taCenter
       Caption = 'Startup Watcher - Startup Items'
-      Font.Height = -15
+      Font.Height = 15
+      Font.Name = 'Liberation Mono'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
     end
   end
   object Button6: TButton
-    Left = 952
+    Left = 948
     Height = 25
     Top = 64
-    Width = 88
+    Width = 97
     Caption = 'Quit'
+    Font.Height = 11
+    Font.Name = 'Liberation Mono'
     OnClick = Button6Click
+    ParentFont = False
     TabOrder = 4
-  end
-  object Button4: TButton
-    Left = 828
-    Height = 22
-    Top = 361
-    Width = 100
-    Caption = 'Refresh All'
-    TabOrder = 5
   end
   object TrayIcon1: TTrayIcon
     PopUpMenu = PopupMenu1
@@ -751,7 +767,6 @@ object Form1: TForm1
     top = 272
     object MenuItem9: TMenuItem
       Caption = 'Action'
-      OnClick = MenuItem9Click
       object MenuItem13: TMenuItem
         Caption = 'Refresh all items'
         OnClick = MenuItem13Click

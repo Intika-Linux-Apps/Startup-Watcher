@@ -19,6 +19,5 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.ShowMainForm:=false;
   Application.Run;
-  Form1.SetFocus;
 end.
 
