@@ -157,7 +157,7 @@ object Form1: TForm1
     ClientWidth = 1069
     TabOrder = 3
     object Label1: TLabel
-      Left = 452
+      Left = 399
       Height = 16
       Top = 2
       Width = 279

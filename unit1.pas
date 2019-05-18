@@ -236,6 +236,8 @@ begin
   //3  Cron-Scheduler      Root   ls -l /etc/cron*; cat /var/spool/cron/*
   updateScript:=updateScript +'/bin/ls -l /etc/cron* > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
+  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
 
@@ -250,6 +252,8 @@ begin
   //6  XDG-Openbox         Root   ls -l /etc/xdg/openbox/; cat /etc/xdg/openbox/*
   updateScript:=updateScript +'/bin/ls -l /etc/xdg/openbox/ > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6 ;';
+  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript +'/bin/cat /etc/xdg/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6 &';
 
@@ -259,12 +263,18 @@ begin
 
   //8  Udev-Rules          Root   ls -l /udev/rules.d/; cat /udev/rules.d/*
   updateScript:=updateScript +'/bin/ls -l /etc/udev/rules.d/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up8 ;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
+  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript +'/bin/cat /etc/udev/rules.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8 &';
 
-  //9  ETC-Profile.d       Root   ls -l /etc/profile.d/ (started with shell)
+  //9  ETC-Profile.d       Root   ls -l /etc/profile.d/; cat /etc/profile.d/* (started with shell)
   updateScript:=updateScript +'/bin/ls -l /etc/profile.d/ > ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript +'/bin/cat /etc/profile.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9 &';
 
   //10 ETC-Profile         Root   cat /etc/profile
@@ -310,7 +320,9 @@ begin
 
   //20 XDG-Openbox         User   ls -l ~/.config/openbox/; cat ~/.config/openbox/* (environment & autostart)
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/openbox/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up20 ;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
+  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript +'/bin/cat '   +homeDir + '.config/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20 &';
 
@@ -436,8 +448,6 @@ begin
   //diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev31) <(/bin/cat ' +homeDir + '.startup-watcher/up31) > ' +homeDir + '.startup-watcher/diff31;';
 
   // -----------------------------------------------------------------------------------
-
-
 
   //backup
   SysUtils.ExecuteProcess(UTF8ToSys('/bin/cp'), ' -f ' +homeDir + '.startup-watcher/up* ' +homeDir + '.startup-watcher/backup/', []);
@@ -592,7 +602,7 @@ end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
-  showmessage('Startup-Watcher v1.1 - for more information, please visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.2 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
@@ -728,7 +738,7 @@ begin
        if FileExists(homeDir + '.startup-watcher/diff8') then memo2.Lines.LoadFromFile(homeDir + '.startup-watcher/diff8') else memo2.text:=dif8;
   end;
 
-  //9  ETC-Profile.d       Root   cat /etc/profile.d (started with shell)
+  //9  ETC-Profile.d       Root   ls -l /etc/profile.d/; cat /etc/profile.d/* (started with shell)
   if tabcontrol1.TabIndex=9  then
   begin
        edit1.Caption:=edit1.Caption+'cat /etc/profile.d (started with shell)';
