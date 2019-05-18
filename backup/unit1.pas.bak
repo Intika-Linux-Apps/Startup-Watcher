@@ -520,12 +520,11 @@ begin
                form1.BringToFront;
                form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
                tabcontrol1.TabIndex:=i;
-               showmessage('Startup-Watcher: changes detected !');
                Form1.TabControl1Change(self);
                Form1.Position:=poDesktopCenter;
-
                Edit1.Text:='Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
+               showmessage('Startup-Watcher: changes detected !');
           end;
 
        memo3.Text:='';

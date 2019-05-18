@@ -402,7 +402,7 @@ begin
 
   diffCompare:='';
   //diff <(/bin/cat old) <(/bin/cat new)
-  diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev0) <(/bin/cat ' +homeDir + '.startup-watcher/up0) > ' +homeDir + '.startup-watcher/diff0;';
+  diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev0 | /bin/grep -v NetworkManager.service | /bin/grep -v networkmanager.service) <(/bin/cat ' +homeDir + '.startup-watcher/up0 | /bin/grep -v NetworkManager.service | /bin/grep -v networkmanager.service) > ' +homeDir + '.startup-watcher/diff0;';
   //diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev1) <(/bin/cat ' +homeDir + '.startup-watcher/up1) > ' +homeDir + '.startup-watcher/diff1;';
   diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev2) <(/bin/cat ' +homeDir + '.startup-watcher/up2) > ' +homeDir + '.startup-watcher/diff2;';
   diffCompare:=diffCompare + '/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev3) <(/bin/cat ' +homeDir + '.startup-watcher/up3) > ' +homeDir + '.startup-watcher/diff3;';
