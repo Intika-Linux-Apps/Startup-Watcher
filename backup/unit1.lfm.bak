@@ -1,23 +1,26 @@
 object Form1: TForm1
-  Left = 221
+  Left = -122
   Height = 626
-  Top = 42
-  Width = 948
+  Top = 57
+  Width = 1086
   Caption = 'Startup Watcher'
   ClientHeight = 603
-  ClientWidth = 948
+  ClientWidth = 1086
   Constraints.MaxHeight = 626
-  Constraints.MaxWidth = 1050
+  Constraints.MaxWidth = 1190
   Constraints.MinHeight = 626
+  Constraints.MinWidth = 1086
   Font.Name = 'Liberation Mono'
   Menu = MainMenu1
+  OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '1.2.4.0'
   object Button1: TButton
-    Left = 948
+    Left = 1088
     Height = 25
-    Top = 1
+    Top = 5
     Width = 97
     Caption = 'Refresh All'
     Font.Height = 11
@@ -30,44 +33,44 @@ object Form1: TForm1
     Left = 8
     Height = 592
     Top = 9
-    Width = 933
+    Width = 1073
     OnChange = TabControl1Change
     TabPosition = tpLeft
     TabWidth = 181
-    TabIndex = 0
+    TabIndex = 15
     Tabs.Strings = (
       'Systemd-Services    Root'
-      'Systemd-Timers      Root'
+      'Systemd-Timers    x Root'
       'Systemd-Init.d      Root'
       'Cron-Scheduler      Root'
       'DBus-Services       Root'
       'XDG-Autostart       Root'
       'XDG-Openbox         Root'
       'X11-Xinitrc         Root'
-      'KDE-Environment     Root'
-      'KDE-Shutdown        Root'
       'Udev-Rules          Root'
-      'ETC-Profile         Root'
       'ETC-Profile.d       Root'
+      'ETC-Profile         Root'
       'RC.D-RC.Local       Root'
       'RC.Local            Root'
-      'Xsession-GDM        Root'
       'Xsession-LightDM    Root'
       'Xsession-LXDM       Root'
       'Xsession-SDDM       Root'
-      'Fluxbox-Startup     Root'
-      'Aws-Autorun.sh      Root'
+      'Xsession-GDM        Root'
       'Systemd-Services    User'
-      'Systemd-Timers      User'
+      'Systemd-Timers    x User'
       'Cron-Scheduler      User'
       'XDG-Openbox         User'
-      'X11-Xinitrc         User'
+      'X11-Xinitrc       x User'
+      'KDE-Environment     User'
       'KDE-Autostart       User'
+      'KDE-Shutdown        User'
       'Xsession            User'
       'Xprofile            User'
       'Autostart-sh        User'
       'Autostart           User'
-      'Wine                User'
+      'Fluxbox-Startup   x User'
+      'Aws-Autorun.sh    x User'
+      'Wine              x User'
     )
     Font.Height = 12
     Font.Name = 'Liberation Mono'
@@ -77,28 +80,28 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 1
     object Label2: TLabel
-      Left = 189
+      Left = 187
       Height = 14
-      Top = 356
+      Top = 405
       Width = 168
       Caption = 'Changes since last check'
       ParentColor = False
     end
     object Memo1: TMemo
-      Left = 187
-      Height = 304
+      Left = 185
+      Height = 352
       Top = 47
-      Width = 739
+      Width = 882
       Font.Name = 'Liberation Mono'
       ParentFont = False
       ScrollBars = ssAutoBoth
       TabOrder = 1
     end
     object Memo2: TMemo
-      Left = 187
-      Height = 208
-      Top = 377
-      Width = 739
+      Left = 185
+      Height = 160
+      Top = 425
+      Width = 882
       Font.Name = 'Liberation Mono'
       Font.Pitch = fpFixed
       Font.Quality = fqAntialiased
@@ -107,26 +110,26 @@ object Form1: TForm1
       TabOrder = 2
     end
     object Edit1: TEdit
-      Left = 187
+      Left = 185
       Height = 22
       Top = 22
-      Width = 739
+      Width = 882
       TabOrder = 3
-      Text = 'Location:'
     end
     object Button3: TButton
-      Left = 722
+      Left = 863
       Height = 23
-      Top = 352
+      Top = 400
       Width = 100
       Caption = 'Refresh'
+      Enabled = False
       OnClick = Button3Click
       TabOrder = 4
     end
     object Button4: TButton
-      Left = 826
+      Left = 967
       Height = 23
-      Top = 352
+      Top = 400
       Width = 100
       Caption = 'Refresh All'
       OnClick = Button4Click
@@ -134,9 +137,9 @@ object Form1: TForm1
     end
   end
   object Button5: TButton
-    Left = 948
+    Left = 1088
     Height = 25
-    Top = 32
+    Top = 36
     Width = 97
     Caption = 'To Tray'
     Font.Height = 11
@@ -149,12 +152,12 @@ object Form1: TForm1
     Left = 8
     Height = 25
     Top = 1
-    Width = 933
+    Width = 1073
     ClientHeight = 21
-    ClientWidth = 929
+    ClientWidth = 1069
     TabOrder = 3
     object Label1: TLabel
-      Left = 328
+      Left = 452
       Height = 16
       Top = 2
       Width = 279
@@ -168,9 +171,9 @@ object Form1: TForm1
     end
   end
   object Button6: TButton
-    Left = 948
+    Left = 1088
     Height = 25
-    Top = 64
+    Top = 68
     Width = 97
     Caption = 'Quit'
     Font.Height = 11
@@ -179,7 +182,17 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 4
   end
+  object Memo3: TMemo
+    Left = 1088
+    Height = 82
+    Top = 512
+    Width = 97
+    TabOrder = 5
+    Visible = False
+  end
   object TrayIcon1: TTrayIcon
+    BalloonHint = 'Startup Watcher'
+    BalloonTitle = 'Startup Watcher'
     PopUpMenu = PopupMenu1
     Icon.Data = {
       3E42000000000100010040400000010020002842000016000000280000004000
@@ -714,20 +727,21 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000
     }
+    Hint = 'Startup Watcher'
     Visible = True
     OnClick = TrayIcon1Click
-    left = 984
-    top = 159
+    left = 1124
+    top = 300
   end
   object Timer1: TTimer
-    Interval = 300000
-    OnTimer = Button1Click
-    left = 984
-    top = 112
+    Interval = 600000
+    OnTimer = Timer1Timer
+    left = 1124
+    top = 116
   end
   object PopupMenu1: TPopupMenu
-    left = 984
-    top = 215
+    left = 1124
+    top = 364
     object MenuItem1: TMenuItem
       Caption = 'Show Startup Watcher'
       OnClick = MenuItem1Click
@@ -763,8 +777,8 @@ object Form1: TForm1
     end
   end
   object MainMenu1: TMainMenu
-    left = 984
-    top = 272
+    left = 1124
+    top = 420
     object MenuItem9: TMenuItem
       Caption = 'Action'
       object MenuItem13: TMenuItem
@@ -797,5 +811,19 @@ object Form1: TForm1
         OnClick = MenuItem12Click
       end
     end
+  end
+  object Timer2: TTimer
+    Enabled = False
+    Interval = 8000
+    OnTimer = Timer2Timer
+    left = 1124
+    top = 172
+  end
+  object Timer3: TTimer
+    Enabled = False
+    Interval = 8000
+    OnTimer = Timer3Timer
+    left = 1124
+    top = 236
   end
 end
