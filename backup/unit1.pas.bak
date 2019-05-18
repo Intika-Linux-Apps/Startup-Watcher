@@ -583,7 +583,7 @@ end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
-  showmessage('For more information, please visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.1 - for more information, please visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);

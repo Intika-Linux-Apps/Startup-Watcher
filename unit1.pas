@@ -498,7 +498,7 @@ begin
   i := 0; while i < 32 do
   begin
        if FileExists(homeDir + '.startup-watcher/diff' + inttostr(i)) then memo3.Lines.LoadFromFile(homeDir + '.startup-watcher/diff' + inttostr(i));
-       i := i + 1;
+
        if memo3.Text <> '' then
           begin
                showmessage('Startup-Watcher: changes detected !');
@@ -520,6 +520,7 @@ begin
 
                Edit1.Text:='Changes saved to: ' + homeDir + '.startup-watcher/changes/';
           end;
+       i := i + 1;
   end;
 
   timer1.Enabled:=true;
@@ -583,7 +584,7 @@ end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
-  showmessage('Startup-Water v1.1 - for more information, please visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.1 - for more information, please visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
