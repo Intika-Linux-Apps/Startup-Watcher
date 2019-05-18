@@ -2,8 +2,6 @@
 
 Watch services and startup applications on linux and notify when change occur (this is an initial version, changes will be made from time to time, any pr is more than welcome)
 
-**Note that** this is beta version i may fix this or that bug on the next day or so 
-
 **Features**
 
 - Watch for changes on 32 locations
