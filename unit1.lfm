@@ -1,5 +1,5 @@
 object Form1: TForm1
-  Left = -122
+  Left = 0
   Height = 626
   Top = 57
   Width = 1086
@@ -37,7 +37,7 @@ object Form1: TForm1
     OnChange = TabControl1Change
     TabPosition = tpLeft
     TabWidth = 181
-    TabIndex = 15
+    TabIndex = 0
     Tabs.Strings = (
       'Systemd-Services    Root'
       'Systemd-Timers    x Root'

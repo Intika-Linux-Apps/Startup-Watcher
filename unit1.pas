@@ -501,25 +501,33 @@ begin
 
        if memo3.Text <> '' then
           begin
-               showmessage('Startup-Watcher: changes detected !');
-
                timer1.Enabled:=false;
-               form1.Visible:=true;
-               form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
-               tabcontrol1.TabIndex:=i;
-               Form1.TabControl1Change(self);
-               Form1.Position:=poDesktopCenter;
 
                fileNameDiff:=inttostr(i) + '-Diff-' + DateToStr(Now) + '-' + TimeToStr(Now);
                fileNameUp:=inttostr(i)   + '-New-'  + DateToStr(Now) + '-' + TimeToStr(Now);
                fileNamePrev:=inttostr(i) + '-Prev-' + DateToStr(Now) + '-' + TimeToStr(Now);
 
+               if FileExists(homeDir + '.startup-watcher/diff' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/diff' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameDiff, true);
+
+               if FileExists(homeDir + '.startup-watcher/prev' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/prev' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNamePrev, true);
+
+               if FileExists(homeDir + '.startup-watcher/up' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/up' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameUp, true);
 
+               form1.Visible:=true;
+               form1.BringToFront;
+               form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
+               tabcontrol1.TabIndex:=i;
+               Form1.TabControl1Change(self);
+               Form1.Position:=poDesktopCenter;
                Edit1.Text:='Changes saved to: ' + homeDir + '.startup-watcher/changes/';
+
+               showmessage('Startup-Watcher: changes detected !');
           end;
+
+       memo3.Text:='';
        i := i + 1;
   end;
 
