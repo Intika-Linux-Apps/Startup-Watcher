@@ -236,7 +236,11 @@ begin
   //3  Cron-Scheduler      Root   ls -l /etc/cron*; cat /var/spool/cron/*
   updateScript:=updateScript +'/bin/ls -l /etc/cron* > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
-  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript + '/bin/echo >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
+  updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
@@ -251,8 +255,12 @@ begin
 
   //6  XDG-Openbox         Root   ls -l /etc/xdg/openbox/; cat /etc/xdg/openbox/*
   updateScript:=updateScript +'/bin/ls -l /etc/xdg/openbox/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up6 ;';
-  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
+  updateScript:=updateScript + '/bin/echo >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
+  updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript +'/bin/cat /etc/xdg/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6 &';
@@ -264,7 +272,11 @@ begin
   //8  Udev-Rules          Root   ls -l /udev/rules.d/; cat /udev/rules.d/*
   updateScript:=updateScript +'/bin/ls -l /etc/udev/rules.d/ > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
-  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript + '/bin/echo >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
+  updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript +'/bin/cat /etc/udev/rules.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8 &';
@@ -272,7 +284,11 @@ begin
   //9  ETC-Profile.d       Root   ls -l /etc/profile.d/; cat /etc/profile.d/* (started with shell)
   updateScript:=updateScript +'/bin/ls -l /etc/profile.d/ > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
-  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript + '/bin/echo >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
   updateScript:=updateScript +'/bin/cat /etc/profile.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9 &';
@@ -321,7 +337,11 @@ begin
   //20 XDG-Openbox         User   ls -l ~/.config/openbox/; cat ~/.config/openbox/* (environment & autostart)
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/openbox/ > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
-  updateScript:=updateScript + 'NewLine=$(/bin/echo;/bin/echo;/bin/echo --------------------------------------;/bin/echo ;/bin/echo Cat output:;); /bin/echo $NewLine >> ';
+  updateScript:=updateScript + '/bin/echo >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
+  updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript +'/bin/cat '   +homeDir + '.config/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20 &';
