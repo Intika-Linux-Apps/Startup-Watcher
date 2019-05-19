@@ -584,6 +584,8 @@ procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose:=false;
   form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
@@ -593,8 +595,9 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
-  TrayIcon1.Visible:=true;
   Form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
@@ -609,9 +612,9 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-     //TODO single refresh
-     //For the moment refresh all assigned
-     button1.click;
+     //Changed to reload just instead of refresh just to reload current tab...
+     //button1.click;
+     Form1.TabControl1Change(self);
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -632,7 +635,7 @@ end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
-  showmessage('Startup-Watcher v1.2 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.3 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
@@ -674,6 +677,8 @@ end;
 procedure TForm1.MenuItem4Click(Sender: TObject);
 begin
   Form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.MenuItem5Click(Sender: TObject);

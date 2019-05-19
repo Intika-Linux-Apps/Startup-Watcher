@@ -83,8 +83,8 @@ object Form1: TForm1
       Left = 187
       Height = 14
       Top = 405
-      Width = 168
-      Caption = 'Changes since last check'
+      Width = 343
+      Caption = 'Changes since last check (removed = <, added = >)'
       ParentColor = False
     end
     object Memo1: TMemo
@@ -121,8 +121,7 @@ object Form1: TForm1
       Height = 23
       Top = 400
       Width = 100
-      Caption = 'Refresh'
-      Enabled = False
+      Caption = 'Reload tab'
       OnClick = Button3Click
       TabOrder = 4
     end

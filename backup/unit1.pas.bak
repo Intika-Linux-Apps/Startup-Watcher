@@ -242,6 +242,8 @@ begin
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
 
@@ -262,6 +264,8 @@ begin
   updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript +'/bin/cat /etc/xdg/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6 &';
 
@@ -278,6 +282,8 @@ begin
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript + '/bin/echo Cat output >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript +'/bin/cat /etc/udev/rules.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8 &';
 
@@ -289,6 +295,8 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
   updateScript:=updateScript + '/bin/echo Cat output >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
   updateScript:=updateScript +'/bin/cat /etc/profile.d/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9 &';
@@ -342,6 +350,8 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript + '/bin/echo Cat output >> ';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
+  updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript +'/bin/cat '   +homeDir + '.config/openbox/* >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20 &';
@@ -599,9 +609,9 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-     //TODO single refresh
-     //For the moment refresh all assigned
-     button1.click;
+     //Changed to reload just instead of refresh just to reload current tab...
+     //button1.click;
+     Form1.TabControl1Change(self);
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -622,7 +632,7 @@ end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
-  showmessage('Startup-Watcher v1.2 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.3 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
