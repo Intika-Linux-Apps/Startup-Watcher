@@ -83,8 +83,8 @@ object Form1: TForm1
       Left = 187
       Height = 14
       Top = 405
-      Width = 343
-      Caption = 'Changes since last check (removed = <, added = >)'
+      Width = 602
+      Caption = 'Changes since last check (removed: <, added: >, history: ~/.startup-watcher/changes/) '
       ParentColor = False
     end
     object Memo1: TMemo

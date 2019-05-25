@@ -526,7 +526,7 @@ end;
 
 procedure TForm1.Timer3Timer(Sender: TObject);
 var i: Integer;
-var fileNameDiff, fileNameUp, fileNamePrev : String;
+var fileNameDiff, fileNameUp, fileNamePrev: String;
 begin
   //Compare and popup
   //Showmessage(diffCompare);
@@ -562,7 +562,7 @@ begin
                tabcontrol1.TabIndex:=i;
                Form1.TabControl1Change(self);
                Form1.Position:=poDesktopCenter;
-               Edit1.Text:='Changes saved to: ' + homeDir + '.startup-watcher/changes/';
+               Label2.Caption:='Changes since last check (removed = <, added = >) | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
                showmessage('Startup-Watcher: changes detected !');
           end;
@@ -584,6 +584,8 @@ procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose:=false;
   form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
@@ -593,8 +595,9 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
-  TrayIcon1.Visible:=true;
   Form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
@@ -674,6 +677,8 @@ end;
 procedure TForm1.MenuItem4Click(Sender: TObject);
 begin
   Form1.Visible:=false;
+  TrayIcon1.Visible:=true;
+  form1.FormStyle:=fsNormal; //fsNormal; //fsSystemStayOnTop
 end;
 
 procedure TForm1.MenuItem5Click(Sender: TObject);

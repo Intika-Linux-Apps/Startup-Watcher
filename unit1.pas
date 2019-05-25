@@ -562,7 +562,7 @@ begin
                tabcontrol1.TabIndex:=i;
                Form1.TabControl1Change(self);
                Form1.Position:=poDesktopCenter;
-               Edit1.Text:='Changes saved to: ' + homeDir + '.startup-watcher/changes/';
+               //Edit1.Text:=Edit1.Text + ' | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
                showmessage('Startup-Watcher: changes detected !');
           end;
