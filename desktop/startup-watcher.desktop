@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Startup-Watcher
+Type=Application
+Terminal=false
+Exec=startupwatcher
+Icon=cs-startup-programs
+Comment=Watch changes on services and start up application
+Encoding=UTF-8
+Categories=GNOME;GTK;Network;Settings;
