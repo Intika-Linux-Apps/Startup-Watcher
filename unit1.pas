@@ -221,7 +221,7 @@ begin
   updateScript:='';
 
   //0  Systemd-Services    Root   systemctl list-unit-files; systemctl -l --type service --all
-  updateScript:=updateScript +'/bin/systemctl list-unit-files > ';
+  updateScript:=updateScript +'/bin/systemctl list-unit-files | sort > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up0 &';
 
   //1  Systemd-Timers    x Root   already watched in services (systemctl list-timers --all)
@@ -330,7 +330,7 @@ begin
   updateScript:=updateScript +homeDir + '.startup-watcher/up16 &';
 
   //17 Systemd-Services    User   systemctl list-unit-files --user
-  updateScript:=updateScript +'/bin/systemctl list-unit-files --user > ';
+  updateScript:=updateScript +'/bin/systemctl list-unit-files --user | sort > ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up17 &';
 
   //18 Systemd-Timers    x User   already watched in services (systemctl list-timers --all --user)
