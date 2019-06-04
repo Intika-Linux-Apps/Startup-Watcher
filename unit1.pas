@@ -556,15 +556,18 @@ begin
                if FileExists(homeDir + '.startup-watcher/up' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/up' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameUp, true);
 
-               form1.Visible:=true;
                form1.BringToFront;
                form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
+
+               showmessage('Startup-Watcher: changes detected !');
+
+               form1.Visible:=true;
                tabcontrol1.TabIndex:=i;
                Form1.TabControl1Change(self);
                Form1.Position:=poDesktopCenter;
                //Edit1.Text:=Edit1.Text + ' | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
-               showmessage('Startup-Watcher: changes detected !');
+
           end;
 
        memo3.Text:='';
@@ -623,18 +626,21 @@ begin
   begin
     MenuItem10.Caption:='Disable Watcher';
     Timer1.Enabled:=true;
+    form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
     Showmessage('Startup Watcher: active scan enabled');
   end
   else
   begin
     MenuItem10.Caption:='Enable Watcher';
     Timer1.Enabled:=false;
+    form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
     Showmessage('Startup Watcher: active scan disabled');
   end;
 end;
 
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
+  form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
   showmessage('Startup-Watcher v1.3 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
