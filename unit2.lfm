@@ -1,0 +1,30 @@
+object Form2: TForm2
+  Left = 453
+  Height = 87
+  Top = 288
+  Width = 332
+  Caption = 'Startup-Watcher Notification'
+  ClientHeight = 87
+  ClientWidth = 332
+  FormStyle = fsSystemStayOnTop
+  Position = poDesktopCenter
+  LCLVersion = '1.2.4.0'
+  object Label1: TLabel
+    Left = 24
+    Height = 15
+    Top = 16
+    Width = 292
+    Caption = 'Startup-Watcher Scanner: changes detected !'
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 88
+    Height = 25
+    Top = 48
+    Width = 168
+    Caption = 'Show details'
+    Default = True
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+end

@@ -153,6 +153,8 @@ var
   Form1: TForm1;
 
 implementation
+uses
+  Unit2;
 
 {$R *.lfm}
 
@@ -556,15 +558,13 @@ begin
                if FileExists(homeDir + '.startup-watcher/up' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/up' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameUp, true);
 
-               form1.BringToFront;
-               form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
 
-               showmessage('Startup-Watcher: changes detected !');
+               Form2.Visible:=true;
+               Form2.BringToFront;
+               Form2.Position:=poDesktopCenter;
 
-               form1.Visible:=true;
                tabcontrol1.TabIndex:=i;
                Form1.TabControl1Change(self);
-               Form1.Position:=poDesktopCenter;
                //Edit1.Text:=Edit1.Text + ' | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
 
