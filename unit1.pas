@@ -641,7 +641,7 @@ end;
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
   form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
-  showmessage('Startup-Watcher v1.3 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.4 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
