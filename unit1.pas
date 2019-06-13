@@ -224,20 +224,20 @@ begin
 
   //0  Systemd-Services    Root   systemctl list-unit-files; systemctl -l --type service --all
   updateScript:=updateScript +'/bin/systemctl list-unit-files | sort > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up0 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up0 2>> '+homeDir +'.startup-watcher/up0 &';
 
   //1  Systemd-Timers    x Root   already watched in services (systemctl list-timers --all)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up1 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up1 2>> '+homeDir +'.startup-watcher/up1 &';
   tab1:='Inactive/disabled';
 
   //2  Systemd-Init.d      Root   ls -l /etc/init.d/
   updateScript:=updateScript +'/bin/ls -l /etc/init.d/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up2 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up2 2>> '+homeDir +'.startup-watcher/up2 &';
 
   //3  Cron-Scheduler      Root   ls -l /etc/cron*; cat /var/spool/cron/*
   updateScript:=updateScript +'/bin/ls -l /etc/cron* > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3 2>> '+homeDir +'.startup-watcher/up3;';
   updateScript:=updateScript + '/bin/echo >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
@@ -247,19 +247,20 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3 2>> '+homeDir +'.startup-watcher/up3 &';
 
   //4  DBus-Services       Root   ls -l /usr/share/dbus-1/services/
   updateScript:=updateScript +'/bin/ls -l /usr/share/dbus-1/services/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up4 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up4 2>> '+homeDir +'.startup-watcher/up4 &';
 
   //5  XDG-Autostart       Root   ls -l /etc/xdg/autostart/
   updateScript:=updateScript +'/bin/ls -l /etc/xdg/autostart/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up5 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up5 2>> '+homeDir +'.startup-watcher/up5 &';
 
   //6  XDG-Openbox         Root   ls -l /etc/xdg/openbox/; cat /etc/xdg/openbox/*
   updateScript:=updateScript +'/bin/ls -l /etc/xdg/openbox/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6 2>> '+homeDir +'.startup-watcher/up6;';
   updateScript:=updateScript + '/bin/echo >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
@@ -269,15 +270,15 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up6;';
   updateScript:=updateScript +'/bin/cat /etc/xdg/openbox/* >> ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up6 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up6 2>> '+homeDir +'.startup-watcher/up6 &';
 
   //7  X11-Xinitrc         Root   cat /etc/X11/xinit/xinitrc
   updateScript:=updateScript +'/bin/cat /etc/X11/xinit/xinitrc > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up7 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up7 2>> '+homeDir +'.startup-watcher/up7 &';
 
   //8  Udev-Rules          Root   ls -l /udev/rules.d/; cat /udev/rules.d/*
   updateScript:=updateScript +'/bin/ls -l /etc/udev/rules.d/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8 2>> '+homeDir +'.startup-watcher/up8;';
   updateScript:=updateScript + '/bin/echo >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
@@ -287,11 +288,11 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up8;';
   updateScript:=updateScript +'/bin/cat /etc/udev/rules.d/* >> ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up8 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up8 2>> '+homeDir +'.startup-watcher/up8 &';
 
   //9  ETC-Profile.d       Root   ls -l /etc/profile.d/; cat /etc/profile.d/* (started with shell)
   updateScript:=updateScript +'/bin/ls -l /etc/profile.d/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9 2>> '+homeDir +'.startup-watcher/up9;';
   updateScript:=updateScript + '/bin/echo >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
@@ -301,52 +302,52 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up9;';
   updateScript:=updateScript +'/bin/cat /etc/profile.d/* >> ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up9 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up9 2>> '+homeDir +'.startup-watcher/up9 &';
 
   //10 ETC-Profile         Root   cat /etc/profile
   updateScript:=updateScript +'/bin/cat /etc/profile > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up10 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up10 2>> '+homeDir +'.startup-watcher/up10 &';
 
   //11 RC.D-RC.Local       Root   cat /etc/rc.d/rc.local
   updateScript:=updateScript +'cat /etc/rc.d/rc.local > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up11 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up11 2>> '+homeDir +'.startup-watcher/up11 &';
 
   //12 RC.Local            Root   cat /etc/rc.local
   updateScript:=updateScript +'/bin/cat /etc/rc.local > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up12 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up12 2>> '+homeDir +'.startup-watcher/up12 &';
 
   //13 Xsession-LightDM    Root   cat /etc/lightdm/Xsession
   updateScript:=updateScript +'/bin/cat /etc/lightdm/Xsession > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up13 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up13 2>> '+homeDir +'.startup-watcher/up13 &';
 
   //14 Xsession-LXDM       Root   cat /etc/lxdm/Xsession
   updateScript:=updateScript +'/bin/cat /etc/lxdm/Xsession > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up14 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up14 2>> '+homeDir +'.startup-watcher/up14 &';
 
   //15 Xsession-SDDM       Root   cat /usr/share/sddm/scripts/Xsession
   updateScript:=updateScript +'/bin/cat /usr/share/sddm/scripts/Xsession > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up15 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up15 2>> '+homeDir +'.startup-watcher/up15 &';
 
   //16 Xsession-GDM        Root   cat /etc/gdm/Xsession
   updateScript:=updateScript +'/bin/cat /etc/gdm/Xsession > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up16 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up16 2>> '+homeDir +'.startup-watcher/up16 &';
 
   //17 Systemd-Services    User   systemctl list-unit-files --user
   updateScript:=updateScript +'/bin/systemctl list-unit-files --user | sort > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up17 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up17 2>> '+homeDir +'.startup-watcher/up17 &';
 
   //18 Systemd-Timers    x User   already watched in services (systemctl list-timers --all --user)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up18 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up18 2>> '+homeDir +'.startup-watcher/up18 &';
   tab18:='Inactive/disabled';
 
   //19 Cron-Scheduler      User   crontab -l
   updateScript:=updateScript +'/bin/crontab -l > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up19 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up19 2>> '+homeDir +'.startup-watcher/up19 &';
 
   //20 XDG-Openbox         User   ls -l ~/.config/openbox/; cat ~/.config/openbox/* (environment & autostart)
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/openbox/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20 2>> '+homeDir +'.startup-watcher/up20;';
   updateScript:=updateScript + '/bin/echo >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
@@ -356,54 +357,54 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up20;';
   updateScript:=updateScript +'/bin/cat '   +homeDir + '.config/openbox/* >> ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up20 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up20 2>> '+homeDir +'.startup-watcher/up20 &';
 
   //21 X11-Xinitrc       x User   not yet implemented (~/.xinitrc)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up21 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up21 2>> '+homeDir +'.startup-watcher/up21 &';
   tab21:='Inactive/disabled';
 
   //22 KDE-Environment     User   ls -l ~/.config/plasma-workspace/env/
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/plasma-workspace/env/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up22 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up22 2>> '+homeDir +'.startup-watcher/up22 &';
 
   //23 KDE-Autostart       User   ls -l ~/.kde/Autostart/
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.kde/Autostart/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up23 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up23 2>> '+homeDir +'.startup-watcher/up23 &';
 
   //24 KDE-Shutdown        User   ls -l ~/.config/plasma-workspace/shutdown/
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/plasma-workspace/shutdown/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up24 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up24 2>> '+homeDir +'.startup-watcher/up24 &';
 
   //25 Xsession            User   cat ~/.xsession
   updateScript:=updateScript +'/bin/cat ' +homeDir + '.xsession > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up25 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up25 2>> '+homeDir +'.startup-watcher/up25 &';
 
   //26 Xprofile            User   cat ~/.xprofile
   updateScript:=updateScript +'/bin/cat ' +homeDir + '.xprofile > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up26 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up26 2>> '+homeDir +'.startup-watcher/up26 &';
 
   //27 Autostart-sh        User   ls -l ~/.config/autostart-scripts/
   updateScript:=updateScript +'/bin/ls -l ' +homeDir + '.config/autostart-scripts/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up27 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up27 2>> '+homeDir +'.startup-watcher/up27 &';
 
   //28 Autostart           User   ls -l ~/.config/autostart/
   updateScript:=updateScript +'/bin/ls -l ' + homeDir + '.config/autostart/ > ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up28 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up28 2>> '+homeDir +'.startup-watcher/up28 &';
 
   //29 Fluxbox-Startup   x User   not yet implemented (~/.fluxbox/startup)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up29 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up29 2>> '+homeDir +'.startup-watcher/up29 &';
   tab29:='Inactive/disabled';
 
   //30 Aws-Autorun.sh    x User   not yet implemented (~/.config/awesome/autorun.sh)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up30 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up30 2>> '+homeDir +'.startup-watcher/up30 &';
   tab30:='Inactive/disabled';
 
   //31 Wine              x User   not yet implemented (~/.wine/...)
   //updateScript:=updateScript +' > ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up31 &';
+  //updateScript:=updateScript +homeDir + '.startup-watcher/up31 2>> '+homeDir +'.startup-watcher/up31 &';
   tab31:='Inactive/disabled';
 
   // -----------------------------------------------------------------------------------
@@ -490,7 +491,7 @@ begin
 
   if (FileExists(homeDir + '/.startup-watcher/up0') and  FileExists(homeDir + '.startup-watcher/up2')) then
     begin
-         Writeln ('Startup-watcher: found previous scan on ' +homeDir + '.startup-watcher/*, loading datas');
+         Writeln ('Startup-watcher: loading previous scan from ' +homeDir + '.startup-watcher/*');
          SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + moveScript + '"', []);
          SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + updateScript + '"', []);
          Timer3.Enabled:=true;
