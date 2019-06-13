@@ -38,6 +38,7 @@ begin
   Form1.Visible:=true;
   Form1.BringToFront;
   Form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
+  Form1.WindowState:=wsMaximized;
   Form1.Position:=poDesktopCenter;
 end;
 

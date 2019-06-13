@@ -568,7 +568,8 @@ begin
                Form1.TabControl1Change(self);
                //Edit1.Text:=Edit1.Text + ' | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
-
+               //cancel loop to avoid missing multiple change at once
+               i:=1000;
           end;
 
        memo3.Text:='';
@@ -642,7 +643,7 @@ end;
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
   form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
-  showmessage('Startup-Watcher v1.4 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.6 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
