@@ -247,7 +247,7 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
-  updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
+  updateScript:=updateScript +homeDir + '.startup-watcher/up3 2>> '+homeDir +'.startup-watcher/up3 &';
 
   //4  DBus-Services       Root   ls -l /usr/share/dbus-1/services/
   updateScript:=updateScript +'/bin/ls -l /usr/share/dbus-1/services/ > ';
@@ -482,9 +482,9 @@ begin
   // -----------------------------------------------------------------------------------
 
   //backup
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/cp'), ' -f ' +homeDir + '.startup-watcher/up* ' +homeDir + '.startup-watcher/backup/', []);
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/cp'), ' -f ' +homeDir + '.startup-watcher/prev* ' +homeDir + '.startup-watcher/backup/', []);
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/cp'), ' -f ' +homeDir + '.startup-watcher/dif* ' +homeDir + '.startup-watcher/backup/', []);
+  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/dif* ' + homeDir + '.startup-watcher/backup/"', []);
+  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/up* ' + homeDir + '.startup-watcher/backup/"', []);
+  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/prev* ' + homeDir + '.startup-watcher/backup/"', []);
 
   // -----------------------------------------------------------------------------------
 
