@@ -531,6 +531,7 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   //Timer1: 600 sec: enabled by default: move (backup), update (scan), run timer3
+  Label1.Caption:='Startup Watcher - Scanning...';
   Writeln ('Startup-watcher: scanning start up locations for changes ' +homeDir + '.startup-watcher/*');
   if (changesDetected = False) then //run new scan only if no changes detected lastly to avoid undetected multiple changes
   begin
@@ -611,6 +612,9 @@ begin
 
   //Disable this timer on exit to avoid loop
   Timer3.Enabled:=False;
+
+  //Reset scanning indicator
+  Label1.Caption:='Startup Watcher - Startup Items';
 end;
 
 procedure TForm1.FormActivate(Sender: TObject);
@@ -676,7 +680,7 @@ end;
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
   form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
-  showmessage('Startup-Watcher v1.7 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.8 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
