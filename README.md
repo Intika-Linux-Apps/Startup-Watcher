@@ -14,9 +14,9 @@ Watch services and startup applications on linux and notify when change occur (t
 
 **Usage**
 
+Download the release binary then
+
 ```
-git clone https://github.com/Intika-Linux-Apps/Startup-Watcher.git
-cd Startup-Watcher
 ./startupwatcher
 ```
 
