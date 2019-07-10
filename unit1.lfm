@@ -37,7 +37,7 @@ object Form1: TForm1
     OnChange = TabControl1Change
     TabPosition = tpLeft
     TabWidth = 181
-    TabIndex = 0
+    TabIndex = 3
     Tabs.Strings = (
       'Systemd-Services    Root'
       'Systemd-Timers    x Root'

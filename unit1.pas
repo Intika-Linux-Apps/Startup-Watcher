@@ -13,67 +13,67 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
-    Button3: TButton;
-    Button4: TButton;
-    Button5: TButton;
-    Button6: TButton;
-    Edit1: TEdit;
-    GroupBox1: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    MainMenu1: TMainMenu;
-    Memo1: TMemo;
-    Memo2: TMemo;
-    Memo3: TMemo;
-    MenuItem1: TMenuItem;
-    MenuItem10: TMenuItem;
-    MenuItem11: TMenuItem;
-    MenuItem12: TMenuItem;
-    MenuItem13: TMenuItem;
-    MenuItem14: TMenuItem;
-    MenuItem15: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem18: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem7: TMenuItem;
-    MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
-    PopupMenu1: TPopupMenu;
-    TabControl1: TTabControl;
-    Timer1: TTimer;
-    Timer2: TTimer;
-    Timer3: TTimer;
-    TrayIcon1: TTrayIcon;
-    procedure Button1Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
-    procedure Button5Click(Sender: TObject);
-    procedure Button6Click(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
-    procedure FormCreate(Sender: TObject);
-    procedure MenuItem10Click(Sender: TObject);
-    procedure MenuItem12Click(Sender: TObject);
-    procedure MenuItem13Click(Sender: TObject);
-    procedure MenuItem14Click(Sender: TObject);
-    procedure MenuItem15Click(Sender: TObject);
-    procedure MenuItem16Click(Sender: TObject);
-    procedure MenuItem1Click(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
-    procedure MenuItem3Click(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
-    procedure MenuItem5Click(Sender: TObject);
-    procedure TabControl1Change(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
-    procedure Timer3Timer(Sender: TObject);
-    procedure TrayIcon1Click(Sender: TObject);
+  Button1: TButton;
+  Button3: TButton;
+  Button4: TButton;
+  Button5: TButton;
+  Button6: TButton;
+  Edit1: TEdit;
+  GroupBox1: TGroupBox;
+  Label1: TLabel;
+  Label2: TLabel;
+  MainMenu1: TMainMenu;
+  Memo1: TMemo;
+  Memo2: TMemo;
+  Memo3: TMemo;
+  MenuItem1: TMenuItem;
+  MenuItem10: TMenuItem;
+  MenuItem11: TMenuItem;
+  MenuItem12: TMenuItem;
+  MenuItem13: TMenuItem;
+  MenuItem14: TMenuItem;
+  MenuItem15: TMenuItem;
+  MenuItem16: TMenuItem;
+  MenuItem17: TMenuItem;
+  MenuItem18: TMenuItem;
+  MenuItem2: TMenuItem;
+  MenuItem3: TMenuItem;
+  MenuItem4: TMenuItem;
+  MenuItem5: TMenuItem;
+  MenuItem6: TMenuItem;
+  MenuItem7: TMenuItem;
+  MenuItem8: TMenuItem;
+  MenuItem9: TMenuItem;
+  PopupMenu1: TPopupMenu;
+  TabControl1: TTabControl;
+  Timer1: TTimer;
+  Timer2: TTimer;
+  Timer3: TTimer;
+  TrayIcon1: TTrayIcon;
+  procedure Button1Click(Sender: TObject);
+  procedure Button3Click(Sender: TObject);
+  procedure Button4Click(Sender: TObject);
+  procedure Button5Click(Sender: TObject);
+  procedure Button6Click(Sender: TObject);
+  procedure FormActivate(Sender: TObject);
+  procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+  procedure FormCreate(Sender: TObject);
+  procedure MenuItem10Click(Sender: TObject);
+  procedure MenuItem12Click(Sender: TObject);
+  procedure MenuItem13Click(Sender: TObject);
+  procedure MenuItem14Click(Sender: TObject);
+  procedure MenuItem15Click(Sender: TObject);
+  procedure MenuItem16Click(Sender: TObject);
+  procedure MenuItem1Click(Sender: TObject);
+  procedure MenuItem2Click(Sender: TObject);
+  procedure MenuItem3Click(Sender: TObject);
+  procedure MenuItem4Click(Sender: TObject);
+  procedure MenuItem5Click(Sender: TObject);
+  procedure TabControl1Change(Sender: TObject);
+  procedure Timer1Timer(Sender: TObject);
+  procedure Timer2Timer(Sender: TObject);
+  procedure Timer3Timer(Sender: TObject);
+  procedure TrayIcon1Click(Sender: TObject);
   private
     { private declarations }
   public
@@ -146,6 +146,8 @@ type
     var moveScript : string;
     var updateScript : string;
     var diffCompare : string;
+    var changesDetected: boolean;
+    var changesDetectedIndex: integer;
 
   end;
 
@@ -161,7 +163,15 @@ uses
 { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
+// -------------------------------------------------------------------------------------
+// Initializing The Application At Startup
 begin
+
+  // -----------------------------------------------------------------------------------
+  // Init Variables
+
+  changesDetected:=false;
+  changesDetectedIndex:=0;
   tab0:='Refresh needed';
   tab1:='Refresh needed';
   tab2:='Refresh needed';
@@ -195,10 +205,12 @@ begin
   tab31:='Refresh needed';
 
   // -----------------------------------------------------------------------------------
+  // Get User Dir
 
   homeDir:=GetUserDir();
 
   // -----------------------------------------------------------------------------------
+  // Check/create application directories/datas
 
   If Not DirectoryExists(homeDir +'.startup-watcher') then
     If Not CreateDir (homeDir + '.startup-watcher') Then
@@ -219,6 +231,7 @@ begin
       Writeln ('Startup-watcher: created changes directory ' +homeDir + '.startup-watcher/changes/ directory');
 
   // -----------------------------------------------------------------------------------
+  // Initialize update script variable
 
   updateScript:='';
 
@@ -229,6 +242,7 @@ begin
   //1  Systemd-Timers    x Root   already watched in services (systemctl list-timers --all)
   //updateScript:=updateScript +' > ';
   //updateScript:=updateScript +homeDir + '.startup-watcher/up1 2>> '+homeDir +'.startup-watcher/up1 &';
+  //Warning: check other code section if this section is to be re enabled to uncoment related code.
   tab1:='Inactive/disabled';
 
   //2  Systemd-Init.d      Root   ls -l /etc/init.d/
@@ -247,7 +261,6 @@ begin
   updateScript:=updateScript + '/bin/echo ------------------------------------------------------ >> ';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3;';
   updateScript:=updateScript +'/bin/cat /var/spool/cron/*  >> ';
-  //updateScript:=updateScript +homeDir + '.startup-watcher/up3 &';
   updateScript:=updateScript +homeDir + '.startup-watcher/up3 2>> '+homeDir +'.startup-watcher/up3 &';
 
   //4  DBus-Services       Root   ls -l /usr/share/dbus-1/services/
@@ -408,10 +421,11 @@ begin
   tab31:='Inactive/disabled';
 
   // -----------------------------------------------------------------------------------
+  // Initialize move script variable (history)
 
   moveScript:='';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up0 ' +homeDir + '.startup-watcher/prev0;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up1 ' +homeDir + '.startup-watcher/prev1;';
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up1 ' +homeDir + '.startup-watcher/prev1;'; //Disabled/inactive
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up2 ' +homeDir + '.startup-watcher/prev2;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up3 ' +homeDir + '.startup-watcher/prev3;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up4 ' +homeDir + '.startup-watcher/prev4;';
@@ -428,10 +442,10 @@ begin
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up15 ' +homeDir + '.startup-watcher/prev15;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up16 ' +homeDir + '.startup-watcher/prev16;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up17 ' +homeDir + '.startup-watcher/prev17;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up18 ' +homeDir + '.startup-watcher/prev18;';
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up18 ' +homeDir + '.startup-watcher/prev18;'; //Disabled/inactive
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up19 ' +homeDir + '.startup-watcher/prev19;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up20 ' +homeDir + '.startup-watcher/prev20;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up21 ' +homeDir + '.startup-watcher/prev21;';
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up21 ' +homeDir + '.startup-watcher/prev21;'; //Disabled/inactive
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up22 ' +homeDir + '.startup-watcher/prev22;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up23 ' +homeDir + '.startup-watcher/prev23;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up24 ' +homeDir + '.startup-watcher/prev24;';
@@ -439,16 +453,17 @@ begin
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up26 ' +homeDir + '.startup-watcher/prev26;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up27 ' +homeDir + '.startup-watcher/prev27;';
   moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up28 ' +homeDir + '.startup-watcher/prev28;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up29 ' +homeDir + '.startup-watcher/prev29;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up30 ' +homeDir + '.startup-watcher/prev30;';
-  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up31 ' +homeDir + '.startup-watcher/prev31;';
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up29 ' +homeDir + '.startup-watcher/prev29;'; //Disabled/inactive
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up30 ' +homeDir + '.startup-watcher/prev30;'; //Disabled/inactive
+  //moveScript:=moveScript + '/bin/cp -f ' +homeDir + '.startup-watcher/up31 ' +homeDir + '.startup-watcher/prev31;'; //Disabled/inactive
 
   // -----------------------------------------------------------------------------------
+  // Initialize diff compare script variable (catch changes)
 
   diffCompare:='';
   //diff <(/bin/cat old) <(/bin/cat new)
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev0 | /bin/grep -v NetworkManager.service | /bin/grep -v networkmanager.service) <(/bin/cat ' +homeDir + '.startup-watcher/up0 | /bin/grep -v NetworkManager.service | /bin/grep -v networkmanager.service) > ' +homeDir + '.startup-watcher/diff0;';
-  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev1) <(/bin/cat ' +homeDir + '.startup-watcher/up1) > ' +homeDir + '.startup-watcher/diff1;';
+  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev1) <(/bin/cat ' +homeDir + '.startup-watcher/up1) > ' +homeDir + '.startup-watcher/diff1;'; //Disabled/inactive
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev2) <(/bin/cat ' +homeDir + '.startup-watcher/up2) > ' +homeDir + '.startup-watcher/diff2;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev3) <(/bin/cat ' +homeDir + '.startup-watcher/up3) > ' +homeDir + '.startup-watcher/diff3;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev4) <(/bin/cat ' +homeDir + '.startup-watcher/up4) > ' +homeDir + '.startup-watcher/diff4;';
@@ -465,10 +480,10 @@ begin
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev15) <(/bin/cat ' +homeDir + '.startup-watcher/up15) > ' +homeDir + '.startup-watcher/diff15;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev16) <(/bin/cat ' +homeDir + '.startup-watcher/up16) > ' +homeDir + '.startup-watcher/diff16;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev17) <(/bin/cat ' +homeDir + '.startup-watcher/up17) > ' +homeDir + '.startup-watcher/diff17;';
-  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev18) <(/bin/cat ' +homeDir + '.startup-watcher/up18) > ' +homeDir + '.startup-watcher/diff18;';
+  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev18) <(/bin/cat ' +homeDir + '.startup-watcher/up18) > ' +homeDir + '.startup-watcher/diff18;'; //Disabled/inactive
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev19) <(/bin/cat ' +homeDir + '.startup-watcher/up19) > ' +homeDir + '.startup-watcher/diff19;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev20) <(/bin/cat ' +homeDir + '.startup-watcher/up20) > ' +homeDir + '.startup-watcher/diff20;';
-  //diffCompare:=diffCompare + + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev21) <(/bin/cat ' +homeDir + '.startup-watcher/up21) > ' +homeDir + '.startup-watcher/diff21;';
+  //diffCompare:=diffCompare + + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev21) <(/bin/cat ' +homeDir + '.startup-watcher/up21) > ' +homeDir + '.startup-watcher/diff21;'; //Disabled/inactive
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev22) <(/bin/cat ' +homeDir + '.startup-watcher/up22) > ' +homeDir + '.startup-watcher/diff22;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev23) <(/bin/cat ' +homeDir + '.startup-watcher/up23) > ' +homeDir + '.startup-watcher/diff23;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev24) <(/bin/cat ' +homeDir + '.startup-watcher/up24) > ' +homeDir + '.startup-watcher/diff24;';
@@ -476,25 +491,24 @@ begin
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev26) <(/bin/cat ' +homeDir + '.startup-watcher/up26) > ' +homeDir + '.startup-watcher/diff26;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev27) <(/bin/cat ' +homeDir + '.startup-watcher/up27) > ' +homeDir + '.startup-watcher/diff27;';
   diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev28) <(/bin/cat ' +homeDir + '.startup-watcher/up28) > ' +homeDir + '.startup-watcher/diff28;';
-  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev29) <(/bin/cat ' +homeDir + '.startup-watcher/up29) > ' +homeDir + '.startup-watcher/diff29;';
-  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev30) <(/bin/cat ' +homeDir + '.startup-watcher/up30) > ' +homeDir + '.startup-watcher/diff30;';
-  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev31) <(/bin/cat ' +homeDir + '.startup-watcher/up31) > ' +homeDir + '.startup-watcher/diff31;';
+  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev29) <(/bin/cat ' +homeDir + '.startup-watcher/up29) > ' +homeDir + '.startup-watcher/diff29;'; //Disabled/inactive
+  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev30) <(/bin/cat ' +homeDir + '.startup-watcher/up30) > ' +homeDir + '.startup-watcher/diff30;'; //Disabled/inactive
+  //diffCompare:=diffCompare + '/usr/bin/diff <(/bin/cat ' +homeDir + '.startup-watcher/prev31) <(/bin/cat ' +homeDir + '.startup-watcher/up31) > ' +homeDir + '.startup-watcher/diff31;'; //Disabled/inactive
 
   // -----------------------------------------------------------------------------------
+  // Backup old files (last run)
 
-  //backup
   SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/dif* ' + homeDir + '.startup-watcher/backup/"', []);
   SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/up* ' + homeDir + '.startup-watcher/backup/"', []);
   SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "/bin/cp -f ' + homeDir + '.startup-watcher/prev* ' + homeDir + '.startup-watcher/backup/"', []);
 
   // -----------------------------------------------------------------------------------
+  // Archive old scan and perform a new one
 
   if (FileExists(homeDir + '/.startup-watcher/up0') and  FileExists(homeDir + '.startup-watcher/up2')) then
     begin
-         Writeln ('Startup-watcher: loading previous scan from ' +homeDir + '.startup-watcher/*');
-         SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + moveScript + '"', []);
-         SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + updateScript + '"', []);
-         Timer3.Enabled:=true;
+         Writeln ('Startup-watcher: archiving previous scan from ' +homeDir + '.startup-watcher/*');
+         Timer1.OnTimer(Self);
     end else
     begin
          Writeln ('Startup-watcher: unable to find previous scan on ' +homeDir + '.startup-watcher/*, running new scan');
@@ -503,80 +517,99 @@ begin
          Timer2.Enabled:=True;
     end;
 
-  // -----------------------------------------------------------------------------------
-
-  Timer1.Enabled:=true;
-
-end;
-
-procedure TForm1.Timer1Timer(Sender: TObject);
-begin
-  //Move, update and compare
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'),  ' -c "' + moveScript + '"', []);
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'),  ' -c "' + updateScript + '"', []);
-  Timer3.Enabled:=true;
-  Timer1.Enabled:=true;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
 begin
-  //Init first run
-  //Wait for update to occur then cp new to old
+  //Timer2: 8 sec: disabled by default: wait for update (scan) to occur then move (backup), only used when there is no update (scan)
   //Showmessage(moveScript);
   SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + moveScript + '"', []);
   Timer2.Enabled:=False;
+  Timer1.Enabled:=True;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  //Timer1: 600 sec: enabled by default: move (backup), update (scan), run timer3
+  Writeln ('Startup-watcher: scanning start up locations for changes ' +homeDir + '.startup-watcher/*');
+  if (changesDetected = False) then //run new scan only if no changes detected lastly to avoid undetected multiple changes
+  begin
+       SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'),  ' -c "' + moveScript + '"', []);
+       SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'),  ' -c "' + updateScript + '"', []);
+  end;
+  Timer3.Enabled:=true;
 end;
 
 procedure TForm1.Timer3Timer(Sender: TObject);
+//Timer3: 8 sec: disaled by default: compare (diffCompare) data after update (scan) and move (backup)
 var i: Integer;
 var fileNameDiff, fileNameUp, fileNamePrev : String;
 begin
-  //Compare and popup
   //Showmessage(diffCompare);
-  SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + diffCompare + '"', []);
-
-
+  //Diff compare only if no change detected lastly
+  if (changesDetected = False) then SysUtils.ExecuteProcess(UTF8ToSys('/bin/bash'), ' -c "' + diffCompare + '"', []);
   memo3.Text:='';
 
-  i := 0; while i < 32 do
+  if (changesDetected = False) then
+  begin
+       i := 0;
+  end else begin
+       i := changesDetectedIndex + 1;
+  end;
+
+  while i < 32 do
   begin
        if FileExists(homeDir + '.startup-watcher/diff' + inttostr(i)) then memo3.Lines.LoadFromFile(homeDir + '.startup-watcher/diff' + inttostr(i));
 
+       //File '.startup-watcher/diffxx' always exist but it is empty when no change are detected
        if memo3.Text <> '' then
           begin
-               timer1.Enabled:=false;
+               //Disable watcher (main timer) on changes detection to avoid missing multiple changes or catching changes when user not present
+               Timer1.Enabled:=false;
+               MenuItem10.Caption:='Enable Watcher';
 
+               //Set changesDetected to true to avoid new scan, and avoid undetected changes
+               changesDetected:=true;
+               changesDetectedIndex:=i;
+
+               //Prepare to save changes
                fileNameDiff:=inttostr(i) + '-Diff-' + DateToStr(Now) + '-' + TimeToStr(Now);
                fileNameUp:=inttostr(i)   + '-New-'  + DateToStr(Now) + '-' + TimeToStr(Now);
                fileNamePrev:=inttostr(i) + '-Prev-' + DateToStr(Now) + '-' + TimeToStr(Now);
 
+               //Save changes
                if FileExists(homeDir + '.startup-watcher/diff' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/diff' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameDiff, true);
-
                if FileExists(homeDir + '.startup-watcher/prev' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/prev' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNamePrev, true);
-
                if FileExists(homeDir + '.startup-watcher/up' + inttostr(i)) then
                CopyFile(homeDir + '.startup-watcher/up' + inttostr(i) , homeDir + '.startup-watcher/changes/' + fileNameUp, true);
 
-
+               //Alert user for changes
                Form2.Visible:=true;
                Form2.BringToFront;
                Form2.Position:=poDesktopCenter;
 
+               //Position form1 to changed section
                tabcontrol1.TabIndex:=i;
                Form1.TabControl1Change(self);
                //Edit1.Text:=Edit1.Text + ' | Changes saved to: ' + homeDir + '.startup-watcher/changes/';
 
-               //cancel loop to avoid missing multiple change at once
+               //Cancel this loop to avoid missing multiple change at once
                i:=1000;
+          end else
+          begin
+               changesDetected:=false;
+               changesDetectedIndex:=0;
+               memo3.Text:='';
+               i := i + 1;
           end;
-
-       memo3.Text:='';
-       i := i + 1;
   end;
 
-  timer1.Enabled:=true;
+  //if no change detected then loop main timer
+  if (changesDetected = false) then timer1.Enabled:=true;
+
+  //Disable this timer on exit to avoid loop
   Timer3.Enabled:=False;
 end;
 
@@ -617,9 +650,9 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-     //Changed to reload just instead of refresh just to reload current tab...
-     //button1.click;
-     Form1.TabControl1Change(self);
+  //Changed to reload just instead of refresh just to reload current tab...
+  //button1.click;
+  Form1.TabControl1Change(self);
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -643,7 +676,7 @@ end;
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
   form1.FormStyle:=fsNormal; //FormStyle:=fsSystemStayOnTop;
-  showmessage('Startup-Watcher v1.6 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
+  showmessage('Startup-Watcher v1.7 - for more information visit https://github.com/Intika-Linux-Apps/Startup-Watcher');
 end;
 
 procedure TForm1.MenuItem13Click(Sender: TObject);
@@ -968,7 +1001,6 @@ begin
        memo1.text:='Inactive/disabled';
        memo2.text:='Inactive/disabled';
   end;
-
 
 end;
 

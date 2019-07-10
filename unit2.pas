@@ -40,6 +40,10 @@ begin
   Form1.FormStyle:=fsSystemStayOnTop; //FormStyle:=fsNormal;
   Form1.WindowState:=wsMaximized;
   Form1.Position:=poDesktopCenter;
+  //Enable back the watcher
+  Form1.MenuItem10.Caption:='Disable Watcher';
+  Form1.Timer1.Interval:=600000;
+  Form1.Timer1.Enabled:=true;
 end;
 
 end.
